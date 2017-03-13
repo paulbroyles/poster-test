@@ -21,18 +21,26 @@ function init() {
 function displayData(data, tabletop) {
     $.each(data, function (index, value) {
         var contentType = value.contenttype;
-        console.log(value.contenttype);
         var content = value.content;
-        console.log(value.content);
         var columnNumber = value.ColumnNumber;
         var backgroundColor = value.BackgroundColor;
         var color = value.Color;
         var fontSize = value.FontSize;
         var contentString;
 
-        if (contentType == 'image') {
+        if (contentType == 'title'){
+          contentString = '<div class="title">' + content + '</div>';
+        }
+        else if (contentType == 'attribution'){
+            contentString = '<div class="attribution">' + content + '</div>';
+          }
+
+          else if (contentType == 'affiliation'){
+              contentString = '<div class="affiliation">' + content + '</div>';
+            }
+        else if (contentType == 'image') {
             var replacedContent = content.replace("https://drive.google.com/open?id=", "https://drive.google.com/uc?export=view&id=");
-//            contentString = '<div class="image"><img src="' + replacedContent + '" /></div>';
+            contentString = '<div class="image"><img src="' + replacedContent + '" /></div>';
             jQuery('<img/>', {
                 src: replacedContent
             }).appendTo('#poster');
