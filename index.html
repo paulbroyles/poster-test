@@ -1,0 +1,55 @@
+<html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="javascript/tabletop.js"></script>
+<style>
+
+</style>
+</head>
+<body>
+<div id="poster"></div>
+<script>
+function init() {
+    Tabletop.init( { key: 'https://docs.google.com/a/ncsu.edu/spreadsheets/d/1W1QpEbymlrm8zk3TUQdq3eTM3YbXPCDMcmKbvJLAGzU/pubhtml',
+        callback: displayData,
+        simpleSheet: true })
+    }
+
+function displayData(data, tabletop) {
+    $.each(data, function (index, value) {
+        var contentType = value.ContentType;
+        var content = value.Content;
+        var columnNumber = value.ColumnNumber;
+        var backgroundColor = value.BackgroundColor;
+        var color = value.Color;
+        var fontSize = value.FontSize;
+        var contentString;
+        if (contentType == 'image') {
+            var replacedContent = content.replace("https://drive.google.com/open?id=", "https://drive.google.com/uc?export=view&id=");
+//            contentString = '<div class="image"><img src="' + replacedContent + '" /></div>';
+            jQuery('<img/>', {
+                src: replacedContent
+            }).appendTo('#poster');
+        }
+        else if (contentType == 'text') {
+            contentString = '<div class="text">' + content + '</div>';
+        }
+        else if (contentType == 'embed') {
+            var width = content.match(/width="?\d{1,4}"?/g).toString();
+            var height = content.match(/height="?\d{1,4}"?/g).toString();
+            width = width.replace("width", "").replace("=", "").replace(/"/g, "");
+            height = height.replace("height", "").replace("=", "").replace(/"/g, "");
+            contentString = '<div class="embed">' + content + '</div>';
+        }
+        $("#poster").append("<div>" + contentString + "</div>");
+    })
+}
+window.addEventListener('DOMContentLoaded', init);
+var html = $("html").html();
+console.log(html);
+</script>
+</body>
+</html>
