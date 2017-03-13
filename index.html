@@ -21,6 +21,7 @@ function init() {
 function displayData(data, tabletop) {
     $.each(data, function (index, value) {
         var contentType = value.ContentType;
+        console.log(contentType); 
         var content = value.Content;
         var columnNumber = value.ColumnNumber;
         var backgroundColor = value.BackgroundColor;
