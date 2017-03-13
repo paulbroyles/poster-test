@@ -27,8 +27,7 @@ function displayData(data, tabletop) {
         var color = value.Color;
         var fontSize = value.FontSize;
         var contentString;
-        console.log(data);
-        console.log(contentType);
+
         if (contentType == 'image') {
             var replacedContent = content.replace("https://drive.google.com/open?id=", "https://drive.google.com/uc?export=view&id=");
 //            contentString = '<div class="image"><img src="' + replacedContent + '" /></div>';
@@ -48,6 +47,8 @@ function displayData(data, tabletop) {
         }
         $("#poster").append("<div>" + contentString + "</div>");
     })
+    console.log(data);
+    console.log(contentType);
 }
 window.addEventListener('DOMContentLoaded', init);
 var html = $("html").html();
