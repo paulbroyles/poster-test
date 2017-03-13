@@ -27,6 +27,7 @@ function displayData(data, tabletop) {
         var color = value.Color;
         var fontSize = value.FontSize;
         var contentString;
+        console.log(data);
         console.log(contentType);
         if (contentType == 'image') {
             var replacedContent = content.replace("https://drive.google.com/open?id=", "https://drive.google.com/uc?export=view&id=");
