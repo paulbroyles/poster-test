@@ -21,8 +21,9 @@ function init() {
 function displayData(data, tabletop) {
     $.each(data, function (index, value) {
         var contentType = value.ContentType;
-        console.log(contentType); 
+        console.log(contentType);
         var content = value.Content;
+        console.log(content);
         var columnNumber = value.ColumnNumber;
         var backgroundColor = value.BackgroundColor;
         var color = value.Color;
@@ -48,8 +49,7 @@ function displayData(data, tabletop) {
         }
         $("#poster").append("<div>" + contentString + "</div>");
     })
-    console.log(data);
-    console.log(contentType);
+
 }
 window.addEventListener('DOMContentLoaded', init);
 var html = $("html").html();
