@@ -14,10 +14,7 @@
 <script>
 function init() {
     Tabletop.init( { key: 'https://docs.google.com/spreadsheets/d/1W1QpEbymlrm8zk3TUQdq3eTM3YbXPCDMcmKbvJLAGzU/pubhtml',
-    callback: function(data, tabletop) {
-                   console.log(data)
-               },
-      //callback: displayData,
+    callback: displayData,
         simpleSheet: true })
     }
 
