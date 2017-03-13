@@ -73,6 +73,8 @@ a {
 }
 
 .image {
+	width: 15%
+	height: 20%; 
 	margin: 0 auto;
 	padding: 0;
 	border: 0;
