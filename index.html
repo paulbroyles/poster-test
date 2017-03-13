@@ -20,9 +20,9 @@ function init() {
 
 function displayData(data, tabletop) {
     $.each(data, function (index, value) {
-        var contentType = value.ContentType;
+        var contentType = value.contenttype;
         console.log(value.contenttype);
-        var content = value.Content;
+        var content = value.content;
         console.log(value.content);
         var columnNumber = value.ColumnNumber;
         var backgroundColor = value.BackgroundColor;
