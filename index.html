@@ -2,67 +2,62 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<link rel="stylesheet" type="text/css" href="css/styles.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="javascript/tabletop.js"></script>
-<script src="javascript/handlebars-v4.0.5.js"></script>
-<style>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-</style>
+<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+<div id="container">
 <div id="poster"></div>
+</div>
+<script id="handlebars-template" type="text/x-handlebars-template">
+  <div class="row">
+    <div class="col-lg-12">
+        <div class="title">{{title}}</div>
+        <div class="subtitle">{{subtitle}}</div>
+        <div class="attribution">{{attribution}}</div>
+        <div class="affiliation">{{affiliation}}</div>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="col-md-4">
+       <div class="section">
+        <div class="sectionheading">{{section1heading}}</div>
+        <div class="text">{{section1text}}</div>
+        <div class="image">{{{section1image}}}</div>
+        <div class="embed">{{{section1media}}}</div>
+      </div>
+    </div>
+  </div>
+</script>
+
+
 <script>
 function init() {
-    Tabletop.init( { key: 'https://docs.google.com/spreadsheets/d/1W1QpEbymlrm8zk3TUQdq3eTM3YbXPCDMcmKbvJLAGzU/pubhtml',
+    Tabletop.init({ key:'https://docs.google.com/spreadsheets/d/10Js-HqarW1UexrxEoTJNrSB49nX7asUV-YBjm0-ZWtk/pubhtml',
     callback: displayData,
-        simpleSheet: true })
+    simpleSheet: true })
     }
 
 function displayData(data, tabletop) {
-    $.each(data, function (index, value) {
-        var contentType = value.contenttype;
-        var content = value.content;
-        var columnNumber = value.ColumnNumber;
-        var backgroundColor = value.BackgroundColor;
-        var color = value.Color;
-        var fontSize = value.FontSize;
-        var contentString;
+        console.log(data);
+        var source = $("#handlebars-template").html();
+        var template = Handlebars.compile(source);
+        var html = template(data[0]);
+        console.log(html);
+        $('#poster').append(html);
+  }
 
-        if (contentType == 'title'){
-          contentString = '<div class="title">' + content + '</div>';
-        }
-        else if (contentType == 'attribution'){
-            contentString = '<div class="attribution">' + content + '</div>';
-          }
-
-          else if (contentType == 'affiliation'){
-              contentString = '<div class="affiliation">' + content + '</div>';
-            }
-        else if (contentType == 'image') {
-            var replacedContent = content.replace("https://drive.google.com/open?id=", "https://drive.google.com/uc?export=view&id=");
-            contentString = '<div class="image"><img src="' + replacedContent + '" /></div>';
-            jQuery('<img/>', {
-                src: replacedContent
-            }).appendTo('#poster');
-        }
-        else if (contentType == 'text') {
-            contentString = '<div class="text">' + content + '</div>';
-        }
-        else if (contentType == 'embed') {
-            var width = content.match(/width="?\d{1,4}"?/g).toString();
-            var height = content.match(/height="?\d{1,4}"?/g).toString();
-            width = width.replace("width", "").replace("=", "").replace(/"/g, "");
-            height = height.replace("height", "").replace("=", "").replace(/"/g, "");
-            contentString = '<div class="embed">' + content + '</div>';
-        }
-        $("#poster").append("<div>" + contentString + "</div>");
-    })
-
-}
 window.addEventListener('DOMContentLoaded', init);
-var html = $("html").html();
-console.log(html);
 </script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="javascript/tabletop.js"></script>
+<script src="javascript/handlebars-v4.0.5.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </body>
 </html>
