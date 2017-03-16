@@ -7,6 +7,9 @@
 
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="container">
@@ -27,6 +30,7 @@
        <div class="section">
         <div class="sectionheading">{{section1heading}}</div>
         <div class="text">{{section1text}}</div>
+        <div class="math">{{section1math}}</div>
         <div class="image">{{{section1image}}}</div>
         <div class="embed">{{{section1media}}}</div>
       </div>
@@ -49,6 +53,13 @@ function displayData(data, tabletop) {
         var html = template(data[0]);
         console.log(html);
         $('#poster').append(html);
+        
+        $('div.math').each(function() {
+        	/* Automatically escaped when written into document; unescape for KaTeX */
+        	var string = $('<textarea>').html($(this).text()).text().replace(/\\\\/g,'\\');
+        	var katex_render = katex.renderToString(string, {displayMode:true});
+        	$(this).html(katex_render);
+        });
   }
 
 window.addEventListener('DOMContentLoaded', init);
