@@ -60,8 +60,7 @@ function displayData(data, tabletop) {
         
         $('div.math').each(function() {
         	/* Automatically escaped when written into document; unescape for KaTeX */
-        	var string = $('<textarea>').html($(this).text()).text();
-        	var katex_render = katex.renderToString(string, {displayMode:true});
+        	var katex_render = katex.renderToString($(this).text(), {displayMode:true});
         	$(this).html(katex_render);
         });
         
