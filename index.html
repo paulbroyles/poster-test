@@ -11,6 +11,8 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
 </head>
 <body>
 <div id="container">
@@ -32,6 +34,7 @@
         <div class="sectionheading">{{section1heading}}</div>
         <div class="text">{{section1text}}</div>
         <div class="math">{{section1math}}</div>
+        <div class="text_math">{{section1textmath}}</div>
         <div class="image">{{{section1image}}}</div>
         <div class="embed">{{{section1media}}}</div>
       </div>
@@ -60,6 +63,10 @@ function displayData(data, tabletop) {
         	var string = $('<textarea>').html($(this).text()).text();
         	var katex_render = katex.renderToString(string, {displayMode:true});
         	$(this).html(katex_render);
+        });
+        
+        $('div.text_math').each(function() {
+        	renderMathInElement(this);
         });
   }
 
