@@ -59,8 +59,10 @@ function displayData(data, tabletop) {
         $('#poster').append(html);
         
         $('div.math').each(function() {
-        	/* Automatically escaped when written into document; unescape for KaTeX */
-        	var katex_render = katex.renderToString($(this).text(), {displayMode:true});
+        	/* katex.renderToString does not like surrounding brackets, so strip
+        		them if present. */
+        	text = $(this).text().replace(/^\\\[(.*)\\\]$/g, '$1');
+        	var katex_render = katex.renderToString(text, {displayMode:true});
         	$(this).html(katex_render);
         });
         
