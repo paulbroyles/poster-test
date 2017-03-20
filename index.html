@@ -9,10 +9,16 @@
 <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha384-dq1/gEHSxPZQ7DdrM82ID4YVol9BYyU7GbWlIwnwyPzotpoc57wDw/guX8EaYGPx" crossorigin="anonymous"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  	TeX: {
+  		extensions: ["mhchem.js"]
+  	}
+  });
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 </head>
 <body>
 <div id="container">
@@ -58,16 +64,12 @@ function displayData(data, tabletop) {
         console.log(html);
         $('#poster').append(html);
         
-        $('div.math').each(function() {
-        	/* katex.renderToString does not like surrounding brackets, so strip
-        		them if present. */
-        	text = $(this).text().replace(/^\\\[(.*)\\\]$/g, '$1');
-        	var katex_render = katex.renderToString(text, {displayMode:true});
-        	$(this).html(katex_render);
-        });
-        
-        $('div.text_math').each(function() {
-        	renderMathInElement(this);
+
+        $('div.math, div.text_math').each(function() {
+        	/* Because the data is loaded dynamically, MathJax has to be
+        		specifically invoked to typeset it. Note that even in .math
+        		elements, this requires the presence of /[ /] surrounding. */
+        	MathJax.Hub.Queue(['Typeset',MathJax.Hub,this]);
         });
   }
 
